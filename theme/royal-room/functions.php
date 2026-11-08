@@ -6,9 +6,15 @@ add_action('after_setup_theme', function () {
     add_editor_style('assets/site.css');
 });
 
+add_filter('wp_img_tag_add_auto_sizes', '__return_false');
+
 function rr_asset(string $file): string {
     $prefix = defined('RR_STATIC_EXPORT') ? 'assets/' : get_theme_file_uri('/assets/');
-    return $prefix . $file;
+    $url = $prefix . $file;
+    if (str_ends_with($file, '.css') || str_ends_with($file, '.js')) {
+        $url .= '?v=' . substr(hash_file('sha256', get_theme_file_path('/assets/' . $file)), 0, 12);
+    }
+    return $url;
 }
 
 // Add behavior hooks and landmarks without changing the editor's saved core block markup.
@@ -40,12 +46,26 @@ add_filter('render_block_core/group', function ($html, $block) {
 
 add_filter('render_block_core/image', function ($html, $block) {
     $classes = explode(' ', $block['attrs']['className'] ?? '');
-    if (!array_intersect(['rr-hero-photo', 'rr-logo'], $classes)) {
+    $sizes = [
+        'rr-hero-photo' => '(max-width: 700px) 260px, 520px',
+        'rr-detail-photo' => '(max-width: 700px) 300px, 460px',
+        'rr-studio-photo' => '(max-width: 700px) 560px, (max-width: 1000px) 640px, 900px',
+    ];
+    if (!array_intersect(['rr-logo', ...array_keys($sizes)], $classes)) {
         return $html;
     }
     $processor = new WP_HTML_Tag_Processor($html);
     if ($processor->next_tag('img')) {
-        $processor->set_attribute('loading', 'eager');
+        // A cover crop needs pixels for the taller axis even when its frame is narrow.
+        foreach ($sizes as $class => $size) {
+            if (in_array($class, $classes, true)) {
+                $processor->set_attribute('sizes', $size);
+                break;
+            }
+        }
+        if (array_intersect(['rr-hero-photo', 'rr-logo'], $classes)) {
+            $processor->set_attribute('loading', 'eager');
+        }
         if (in_array('rr-hero-photo--right', $classes, true)) {
             $processor->set_attribute('fetchpriority', 'high');
         }

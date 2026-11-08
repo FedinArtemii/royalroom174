@@ -3,7 +3,13 @@ import * as moment from './moment-lib.js';
 import './motion.js';
 
 const statement = document.querySelector('[data-moment="word-highlight"]');
-if (statement) wordHighlight(statement, {}, moment);
+const statementCopy = statement?.querySelector('.mo-wh__text');
+if (statementCopy && !moment.reduced()) {
+  wordHighlight(statement, {}, moment);
+  // The animation wraps whole words, so keep the original sentence in the accessibility tree.
+  statementCopy.removeAttribute('aria-label');
+  statementCopy.querySelectorAll('.mo-w[aria-hidden]').forEach(word => word.removeAttribute('aria-hidden'));
+}
 
 const menu = document.querySelector('.rr-nav');
 if (menu) {
