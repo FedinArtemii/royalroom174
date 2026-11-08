@@ -1,0 +1,8 @@
+{
+  "version": 3,
+  "settings": {
+    "appearanceTools": true,
+    "layout": { "contentSize": "1312px", "wideSize": "1312px" },
+    "spacing": { "blockGap": false }
+  }
+}
