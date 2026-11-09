@@ -81,7 +81,6 @@ add_filter('render_block_core/button', function ($html, $block) {
     if ($processor->next_tag('a')) {
         $processor->add_class('btn');
         $processor->add_class('btn--primary');
-        $processor->add_class('btn--arrow');
     }
     return $processor->get_updated_html();
 }, 10, 2);

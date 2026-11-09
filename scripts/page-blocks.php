@@ -35,7 +35,7 @@ function rr_image(int $attachment, string $alt, string $class): string {
 
 function rr_booking(): string {
     return rr_block('buttons', [], '<div class="wp-block-buttons">' . rr_block('button', ['className' => 'rr-book'],
-        '<div class="wp-block-button rr-book"><a class="wp-block-button__link wp-element-button" href="https://vk.ru/royalroom174">Записаться во ВКонтакте</a></div>') . '</div>');
+        '<div class="wp-block-button rr-book"><a class="wp-block-button__link wp-element-button" href="https://vk.ru/royalroom174">Записаться</a></div>') . '</div>');
 }
 
 function rr_disclosure(string $label, string $description): string {

@@ -1,4 +1,5 @@
 /.local/
 /.taste-skill/
-/.impeccable/
+/.impeccable/*
+!/.impeccable/design.json
 /.qa/

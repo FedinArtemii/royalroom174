@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-09T11:57:00+05:00",
+  "title": "Design System: Royal Room",
+  "extensions": {
+    "motion": [
+      { "name": "photo-reveal", "value": "760ms cubic-bezier(.22, 1, .36, 1)", "purpose": "Однократное раскрытие фотографий первого экрана от центра к краям." },
+      { "name": "panel-feedback", "value": "180ms cubic-bezier(.22, 1, .36, 1)", "purpose": "Открытие меню и описания процедуры." }
+    ],
+    "breakpoints": [
+      { "name": "mobile", "value": "700px" },
+      { "name": "tablet", "value": "960px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Запись",
+      "kind": "button",
+      "refersTo": "booking-link",
+      "description": "Текстовая ссылка на запись во ВКонтакте.",
+      "html": "<a class=\"sample-booking\" href=\"https://vk.ru/royalroom174\">Записаться</a>",
+      "css": ".sample-booking { display: inline-flex; align-items: center; justify-content: center; width: min(100%, 310px); min-height: 58px; padding: 14px 21px; box-sizing: border-box; background: #f7f1e7; color: #523c2a; font: 750 15px/1.3 Manrope, sans-serif; text-decoration: none; } .sample-booking:focus-visible { outline: 2px solid #e2bf78; outline-offset: 4px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "Тёплая подпись",
+    "overview": "Золотой логотип в центре табачного первого экрана, фотографии процедур по краям и фарфоровая кнопка записи.",
+    "keyCharacteristics": ["Подлинный логотип", "Крупные планы процедур", "Текстовые кнопки"],
+    "rules": [
+      { "name": "Подписи действий", "body": "Использовать текстовые подписи для кнопок и навигационных ссылок.", "section": "components" },
+      { "name": "Уменьшение движения", "body": "Сразу показывать фотографии и описание при включённом уменьшении движения.", "section": "motion" }
+    ]
+  }
+}
